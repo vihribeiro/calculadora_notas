@@ -15,6 +15,9 @@
             border-radius: 10px;
             box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
         }
+        h2 {
+            text-align: center; /* Alinha o título ao centro */
+        }
         .container {
             display: flex;
             flex-wrap: wrap;
@@ -28,13 +31,24 @@
             border: 1px solid #ddd;
             border-radius: 8px;
             background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
         }
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
         input[type="number"] {
-            width: 80px;
+            width: 100%; /* Alinha os campos no mesmo tamanho */
             padding: 8px;
-            margin: 5px 0 15px 0;
+            margin-bottom: 10px;
             border-radius: 5px;
             border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        input::placeholder {
+            white-space: nowrap;
         }
         .button-container {
             display: flex;
@@ -110,7 +124,7 @@
                 <label for="n2-${contadorDisciplinas}">Nota N2:</label>
                 <input type="number" id="n2-${contadorDisciplinas}" step="0.01" placeholder="N2">
                 <label for="partic-${contadorDisciplinas}">Nota de Participação:</label>
-                <input type="number" id="partic-${contadorDisciplinas}" step="0.01" placeholder="Part">
+                <input type="number" id="partic-${contadorDisciplinas}" step="0.01" placeholder="Participação">
             `;
             container.appendChild(div);
         }
