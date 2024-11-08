@@ -29,8 +29,8 @@
             border-radius: 8px;
             background-color: #f9f9f9;
         }
-        input {
-            width: calc(100% - 20px);
+        input[type="number"] {
+            width: 80px;
             padding: 8px;
             margin: 5px 0 15px 0;
             border-radius: 5px;
@@ -68,6 +68,10 @@
             margin-top: 30px;
             padding: 10px;
         }
+        footer a {
+            color: inherit;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -86,7 +90,7 @@
     <footer>
         Autor: Vinicius Santos Ribeiro<br>
         Curso: Análise e Desenvolvimento de Sistemas - Mackenzie<br>
-        Contato: vinicius.santos.ribeiro@gmail.com
+        Contato: <a href="mailto:vinicius.santos.ribeiro@gmail.com">vinicius.santos.ribeiro@gmail.com</a>
     </footer>
 
     <script>
@@ -102,11 +106,11 @@
                 <label for="nome-disciplina-${contadorDisciplinas}">Nome da Disciplina:</label>
                 <input type="text" id="nome-disciplina-${contadorDisciplinas}" placeholder="Insira o nome da disciplina">
                 <label for="n1-${contadorDisciplinas}">Nota N1:</label>
-                <input type="number" id="n1-${contadorDisciplinas}" step="0.01" placeholder="Insira a nota N1">
+                <input type="number" id="n1-${contadorDisciplinas}" step="0.01" max="999.99" placeholder="N1">
                 <label for="n2-${contadorDisciplinas}">Nota N2:</label>
-                <input type="number" id="n2-${contadorDisciplinas}" step="0.01" placeholder="Insira a nota N2">
+                <input type="number" id="n2-${contadorDisciplinas}" step="0.01" max="999.99" placeholder="N2">
                 <label for="partic-${contadorDisciplinas}">Nota de Participação:</label>
-                <input type="number" id="partic-${contadorDisciplinas}" step="0.01" placeholder="Insira a nota de participação">
+                <input type="number" id="partic-${contadorDisciplinas}" step="0.01" max="999.99" placeholder="Part">
             `;
             container.appendChild(div);
         }
@@ -137,8 +141,9 @@
                 if (media < notaCorte) {
                     const valorFaltante = notaCorte - media;
                     resultadosHTML += `<p style="color: red;">Valor faltante para a nota de corte: ${valorFaltante.toFixed(2)}</p>`;
+                    resultadosHTML += `<p style="color: orange;">Não foi dessa vez, mas continue firme! Cada esforço é um passo a mais rumo ao sucesso. Mantenha o foco e vamos nessa!</p>`;
                 } else {
-                    resultadosHTML += `<p style="color: green;">A nota de corte foi atingida ou superada.</p>`;
+                    resultadosHTML += `<p style="color: green;">Parabéns pela conquista! Sua dedicação está mostrando resultados. Continue assim, você está mandando muito bem!</p>`;
                 }
             });
 
