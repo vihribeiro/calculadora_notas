@@ -8,22 +8,26 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 800px;
+            max-width: 900px;
             margin: 50px auto;
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 10px;
             box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
         }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
         .disciplina {
+            flex: 1 1 calc(50% - 20px);
+            box-sizing: border-box;
             margin-bottom: 20px;
             padding: 15px;
             border: 1px solid #ddd;
             border-radius: 8px;
             background-color: #f9f9f9;
-        }
-        .disciplina h3 {
-            margin-top: 0;
         }
         input {
             width: calc(100% - 20px);
@@ -57,7 +61,7 @@
     <img src="M_vermelho.jpg" alt="Logo">
     <h2><b>Calculadora de Médias Finais - Múltiplas Disciplinas</b></h2>
     
-    <div id="disciplinas-container"></div>
+    <div id="disciplinas-container" class="container"></div>
     
     <button onclick="adicionarDisciplina()">+ Adicionar Disciplina</button>
     <button onclick="calcularMedias()">Calcular Médias</button>
