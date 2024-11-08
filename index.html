@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 600px;
+            max-width: 800px;
             margin: 50px auto;
             padding: 20px;
             border: 1px solid #ccc;
@@ -33,13 +33,13 @@
             border: 1px solid #ccc;
         }
         button {
-            width: 100%;
             padding: 10px;
             background-color: #931212;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin-bottom: 20px;
         }
         button:hover {
             background-color: #ff0000;
@@ -56,76 +56,56 @@
 <body>
     <img src="M_vermelho.jpg" alt="Logo">
     <h2><b>Calculadora de Médias Finais - Múltiplas Disciplinas</b></h2>
-    <div id="disciplinas">
-        <div class="disciplina">
-            <h3>Banco de Dados</h3>
-            <label for="n1-bd">Nota N1:</label>
-            <input type="number" id="n1-bd" step="0.01" placeholder="Insira a nota N1">
-            <label for="n2-bd">Nota N2:</label>
-            <input type="number" id="n2-bd" step="0.01" placeholder="Insira a nota N2">
-            <label for="partic-bd">Nota de Participação:</label>
-            <input type="number" id="partic-bd" step="0.01" placeholder="Insira a nota de participação">
-        </div>
-
-        <div class="disciplina">
-            <h3>Desenvolvimento de Sistemas</h3>
-            <label for="n1-ds">Nota N1:</label>
-            <input type="number" id="n1-ds" step="0.01" placeholder="Insira a nota N1">
-            <label for="n2-ds">Nota N2:</label>
-            <input type="number" id="n2-ds" step="0.01" placeholder="Insira a nota N2">
-            <label for="partic-ds">Nota de Participação:</label>
-            <input type="number" id="partic-ds" step="0.01" placeholder="Insira a nota de participação">
-        </div>
-
-        <div class="disciplina">
-            <h3>Web</h3>
-            <label for="n1-web">Nota N1:</label>
-            <input type="number" id="n1-web" step="0.01" placeholder="Insira a nota N1">
-            <label for="n2-web">Nota N2:</label>
-            <input type="number" id="n2-web" step="0.01" placeholder="Insira a nota N2">
-            <label for="partic-web">Nota de Participação:</label>
-            <input type="number" id="partic-web" step="0.01" placeholder="Insira a nota de participação">
-        </div>
-
-        <div class="disciplina">
-            <h3>Cosmovisão</h3>
-            <label for="n1-cosm">Nota N1:</label>
-            <input type="number" id="n1-cosm" step="0.01" placeholder="Insira a nota N1">
-            <label for="n2-cosm">Nota N2:</label>
-            <input type="number" id="n2-cosm" step="0.01" placeholder="Insira a nota N2">
-            <label for="partic-cosm">Nota de Participação:</label>
-            <input type="number" id="partic-cosm" step="0.01" placeholder="Insira a nota de participação">
-        </div>
-        <!-- Adicione mais disciplinas aqui conforme necessário -->
-    </div>
-
+    
+    <div id="disciplinas-container"></div>
+    
+    <button onclick="adicionarDisciplina()">+ Adicionar Disciplina</button>
     <button onclick="calcularMedias()">Calcular Médias</button>
 
     <div id="resultados" class="resultado"></div>
 
     <script>
+        let contadorDisciplinas = 0;
+
+        function adicionarDisciplina() {
+            contadorDisciplinas++;
+            const container = document.getElementById('disciplinas-container');
+
+            const div = document.createElement('div');
+            div.classList.add('disciplina');
+            div.innerHTML = `
+                <label for="nome-disciplina-${contadorDisciplinas}">Nome da Disciplina:</label>
+                <input type="text" id="nome-disciplina-${contadorDisciplinas}" placeholder="Insira o nome da disciplina">
+                <label for="n1-${contadorDisciplinas}">Nota N1:</label>
+                <input type="number" id="n1-${contadorDisciplinas}" step="0.01" placeholder="Insira a nota N1">
+                <label for="n2-${contadorDisciplinas}">Nota N2:</label>
+                <input type="number" id="n2-${contadorDisciplinas}" step="0.01" placeholder="Insira a nota N2">
+                <label for="partic-${contadorDisciplinas}">Nota de Participação:</label>
+                <input type="number" id="partic-${contadorDisciplinas}" step="0.01" placeholder="Insira a nota de participação">
+            `;
+            container.appendChild(div);
+        }
+
         function calcularMedia(n1, n2, participacao) {
             return (n1 * 6 + n2 * 4) / 10 + participacao;
         }
 
         function calcularMedias() {
-            const disciplinas = [
-                { nome: 'Banco de Dados', n1: 'n1-bd', n2: 'n2-bd', partic: 'partic-bd' },
-                { nome: 'Desenvolvimento de Sistemas', n1: 'n1-ds', n2: 'n2-ds', partic: 'partic-ds' },
-                { nome: 'Web', n1: 'n1-web', n2: 'n2-web', partic: 'partic-web' },
-                { nome: 'Cosmovisão', n1: 'n1-cosm', n2: 'n2-cosm', partic: 'partic-cosm' }
-                // Adicione mais disciplinas aqui
-            ];
+            const disciplinas = [];
+            for (let i = 1; i <= contadorDisciplinas; i++) {
+                const nome = document.getElementById(`nome-disciplina-${i}`).value || `Disciplina ${i}`;
+                const n1 = parseFloat(document.getElementById(`n1-${i}`).value) || 0;
+                const n2 = parseFloat(document.getElementById(`n2-${i}`).value) || 0;
+                const participacao = parseFloat(document.getElementById(`partic-${i}`).value) || 0;
+
+                disciplinas.push({ nome, n1, n2, participacao });
+            }
 
             const notaCorte = 6;
             let resultadosHTML = '';
 
             disciplinas.forEach(disciplina => {
-                const n1 = parseFloat(document.getElementById(disciplina.n1).value) || 0;
-                const n2 = parseFloat(document.getElementById(disciplina.n2).value) || 0;
-                const participacao = parseFloat(document.getElementById(disciplina.partic).value) || 0;
-
-                const media = calcularMedia(n1, n2, participacao);
+                const media = calcularMedia(disciplina.n1, disciplina.n2, disciplina.participacao);
                 resultadosHTML += `<h4>${disciplina.nome}</h4>`;
                 resultadosHTML += `<p>Média Final Prevista: ${media.toFixed(2)}</p>`;
 
