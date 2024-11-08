@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible=IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo de Médias Finais - Múltiplas Disciplinas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
+        }
+        .disciplina {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .disciplina h3 {
+            margin-top: 0;
+        }
+        input {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin: 5px 0 15px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #931212;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ff0000;
+        }
+        .resultado {
+            margin-top: 20px;
+        }
+        img {
+            display: block;
+            margin: 0 auto 20px;
+        }
+    </style>
+</head>
+<body>
+    <img src="M_vermelho.jpg" alt="Logo">
+    <h2><b>Calculadora de Médias Finais - Múltiplas Disciplinas</b></h2>
+    <div id="disciplinas">
+        <div class="disciplina">
+            <h3>Banco de Dados</h3>
+            <label for="n1-bd">Nota N1:</label>
+            <input type="number" id="n1-bd" step="0.01" placeholder="Insira a nota N1">
+            <label for="n2-bd">Nota N2:</label>
+            <input type="number" id="n2-bd" step="0.01" placeholder="Insira a nota N2">
+            <label for="partic-bd">Nota de Participação:</label>
+            <input type="number" id="partic-bd" step="0.01" placeholder="Insira a nota de participação">
+        </div>
+
+        <div class="disciplina">
+            <h3>Desenvolvimento de Sistemas</h3>
+            <label for="n1-ds">Nota N1:</label>
+            <input type="number" id="n1-ds" step="0.01" placeholder="Insira a nota N1">
+            <label for="n2-ds">Nota N2:</label>
+            <input type="number" id="n2-ds" step="0.01" placeholder="Insira a nota N2">
+            <label for="partic-ds">Nota de Participação:</label>
+            <input type="number" id="partic-ds" step="0.01" placeholder="Insira a nota de participação">
+        </div>
+
+        <div class="disciplina">
+            <h3>Web</h3>
+            <label for="n1-web">Nota N1:</label>
+            <input type="number" id="n1-web" step="0.01" placeholder="Insira a nota N1">
+            <label for="n2-web">Nota N2:</label>
+            <input type="number" id="n2-web" step="0.01" placeholder="Insira a nota N2">
+            <label for="partic-web">Nota de Participação:</label>
+            <input type="number" id="partic-web" step="0.01" placeholder="Insira a nota de participação">
+        </div>
+
+        <div class="disciplina">
+            <h3>Cosmovisão</h3>
+            <label for="n1-cosm">Nota N1:</label>
+            <input type="number" id="n1-cosm" step="0.01" placeholder="Insira a nota N1">
+            <label for="n2-cosm">Nota N2:</label>
+            <input type="number" id="n2-cosm" step="0.01" placeholder="Insira a nota N2">
+            <label for="partic-cosm">Nota de Participação:</label>
+            <input type="number" id="partic-cosm" step="0.01" placeholder="Insira a nota de participação">
+        </div>
+        <!-- Adicione mais disciplinas aqui conforme necessário -->
+    </div>
+
+    <button onclick="calcularMedias()">Calcular Médias</button>
+
+    <div id="resultados" class="resultado"></div>
+
+    <script>
+        function calcularMedia(n1, n2, participacao) {
+            return (n1 * 6 + n2 * 4) / 10 + participacao;
+        }
+
+        function calcularMedias() {
+            const disciplinas = [
+                { nome: 'Banco de Dados', n1: 'n1-bd', n2: 'n2-bd', partic: 'partic-bd' },
+                { nome: 'Desenvolvimento de Sistemas', n1: 'n1-ds', n2: 'n2-ds', partic: 'partic-ds' },
+                { nome: 'Web', n1: 'n1-web', n2: 'n2-web', partic: 'partic-web' },
+                { nome: 'Cosmovisão', n1: 'n1-cosm', n2: 'n2-cosm', partic: 'partic-cosm' }
+                // Adicione mais disciplinas aqui
+            ];
+
+            const notaCorte = 6;
+            let resultadosHTML = '';
+
+            disciplinas.forEach(disciplina => {
+                const n1 = parseFloat(document.getElementById(disciplina.n1).value) || 0;
+                const n2 = parseFloat(document.getElementById(disciplina.n2).value) || 0;
+                const participacao = parseFloat(document.getElementById(disciplina.partic).value) || 0;
+
+                const media = calcularMedia(n1, n2, participacao);
+                resultadosHTML += `<h4>${disciplina.nome}</h4>`;
+                resultadosHTML += `<p>Média Final Prevista: ${media.toFixed(2)}</p>`;
+
+                if (media < notaCorte) {
+                    const valorFaltante = notaCorte - media;
+                    resultadosHTML += `<p style="color: red;">Valor faltante para a nota de corte: ${valorFaltante.toFixed(2)}</p>`;
+                } else {
+                    resultadosHTML += `<p style="color: green;">A nota de corte foi atingida ou superada.</p>`;
+                }
+            });
+
+            document.getElementById('resultados').innerHTML = resultadosHTML;
+        }
+    </script>
+</body>
+</html>
